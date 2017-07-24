@@ -1,5 +1,13 @@
 <?php
 
+function upload()
+{
+    try{
+    $fname = UPL . "/" .basename($_FILES['userfile']['name']);
+    move_uploaded_file($_FILES['userfile']['tmp_name'], $fname));
+    }catch
+}
+
 function scan($dir)
 {
     
