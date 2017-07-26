@@ -19,14 +19,14 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">File Manager</a>
+          <a class="navbar-brand" href="index.php">File Manager x<?=$content['cnt']?></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <form class="navbar-form navbar-left" enctype="multipart/form-data" action="" method="POST">
             <div class="form-group">
-              <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+              <!-- <input type="hidden" name="MAX_FILE_SIZE" value="30000" /> -->
               <input name="userfile" type="file" class="btn btn-info">
             </div>
             <button type="submit" class="btn btn-success">Upload</button>
@@ -39,18 +39,29 @@
     </nav>
 
     <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <table class="table table-hover">
-          <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Size</th>
-          <th>Action</th>
-          </tr>
-          <?=mktable($files)?>
-        </table>
-      </div>
+      <?php 
+      if ($content['tab'])
+      {
+      ?>
+        <div class="col-md-10 col-md-offset-1">
+          <table class="table table-hover">
+            <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Action</th>
+            </tr>
+            <?=$content['tab']?>
+          </table>
+        </div>
+      <?php
+      }
+      else
+      {
+        echo $content['err'];
+      }    
+      ?>
     </div>
-
+    
   </body>
 </html>

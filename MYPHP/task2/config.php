@@ -1,2 +1,2 @@
 <?php
-define('ERR1','Delenie na 0!<br>');
+define('ERR1','Delenie na 0!');

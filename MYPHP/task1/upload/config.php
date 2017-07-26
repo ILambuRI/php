@@ -1,7 +1,7 @@
 <?php
 /* Folder */
-// define('UPL','upload');
-define('UPL','/usr/home/user10/public_html/MYPHP/task1/upload');
+define('UPL','upload');
+//define('UPL','/usr/home/user10/public_html/MYPHP/task1/upload');
 
 /* Empty table */
 define("EMPTY_TAB","<div class='alert alert-warning col-md-2 col-md-offset-5' role='alert'>No files!</div>");
