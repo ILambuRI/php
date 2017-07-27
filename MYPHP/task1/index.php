@@ -22,6 +22,6 @@ if ('GET' == $_SERVER['REQUEST_METHOD'] and $_GET['name'])
 }
 
 $files = dirScan(UPL);
-$content = mktable($files);
+// $content = mktable($files);
 
 include 'templates/index.php';

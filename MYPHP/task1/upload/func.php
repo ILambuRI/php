@@ -32,6 +32,7 @@ function upload()
 
 function dirScan($dir)
 {
+    $i = 0;
     $files = [];
     if (is_dir($dir))
     {
@@ -40,27 +41,34 @@ function dirScan($dir)
         {
             if (is_file($dir . "/" . $file))
             {
-                $i = filesize($dir . '/' . $file);
-                $files[$file]['name'] = $file;
-            
-                if ($i < '1024')
-                {
-                    $files[$file]['size'] = $i . " byte";
-                }
-                elseif ($i > '1024' and $i < '1048576')
-                {
-                    $s = $i / 1024;
-                    $files[$file]['size'] = (int)$s . " kb";
-                }
-                else
-                {
-                    $s =($i / 1024) / 1024;
-                    $files[$file]['size'] = (int)$s . " Mb";
-                }
+                $size = filesize($dir . '/' . $file);
+                $files[$i]['name'] = $file;
+                $files[$i]['size'] = sizeChek($size);
+                $i++;
             }
         }
+        $files['cnt'] = $i;
     }
     return $files;
+}
+
+function sizeChek($size)
+{
+    if ($size < '1024')
+    {
+        $res = $size . " byte";
+    }
+    elseif ($size > '1024' and $size < '1048576')
+    {
+        $s = $size / 1024;
+        $res = (int)$s . " kb";
+    }
+    else
+    {
+        $s =($size / 1024) / 1024;
+        $res = (int)$s . " Mb";
+    }
+    return $res;
 }
 
 function mkTable($arr = [])

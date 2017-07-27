@@ -19,7 +19,7 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.php">File Manager x<?=$content['cnt']?></a>
+          <a class="navbar-brand" href="index.php">File Manager x<?=$files['cnt']?></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -40,25 +40,31 @@
 
     <div class="row">
       <?php 
-      if ($content['tab'])
+      if ($files['cnt'])
       {
       ?>
         <div class="col-md-10 col-md-offset-1">
           <table class="table table-hover">
-            <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Action</th>
-            </tr>
-            <?=$content['tab']?>
+            <?php
+                for ($i = 0; $i < count($files)-1; $i++)
+                {
+                  ?>
+                  <tr>
+                      <td><?=$i+1?></td>
+                      <td><?=$files[$i]['name']?></td>
+                      <td><?=$files[$i]['size']?></td>
+                      <td><a href="index.php?name=<?=$files[$i]['name']?>">Delete</td>
+                  </tr>
+                  <?php
+                }
+              ?>
           </table>
         </div>
       <?php
       }
       else
       {
-        echo $content['err'];
+        echo EMPTY_TAB;
       }    
       ?>
     </div>

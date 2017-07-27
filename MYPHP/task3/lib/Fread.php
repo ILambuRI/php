@@ -1,7 +1,8 @@
 <?php
 class Fread
 {
-    private $file;
+    protected $file;
+    protected $dir;
 
     function __construct()
     {
@@ -9,20 +10,21 @@ class Fread
 
     function fileEnter($dir)
     {
+        $this->dir = $dir;
         if (is_file($dir))
         {
-            if (($this->file = fopen("$dir", "r")))
+            if (($this->file = fopen($dir, 'c+')))
             {
-                $msg = "The file is open for work.";
+                $msg = OPEN;
             }
             else
             {
-                $msg = "The file exists, but I can not open it!";
+                $msg = EXIST_NOT_OPEN;
             }
         }
         else
         {
-            $msg = "The file does not exist!";
+            $msg = NOT_EXIST;
         }
         return $msg;
     }
@@ -33,18 +35,35 @@ class Fread
         {
             if (($string = fgets($this->file)))
             {
-                $msg = $string;
+                $msg = $string . "<br>";
             }
             else
             {
-                $msg = "End of file.";
+                $msg = END;
             }
         }
         else
         {
-            $msg = "End of file.";
+            $msg = END;
         }
         return $msg;
+    }
+
+    function rewriteStr($str, $str_replace)
+    {
+        $file = [];
+        $str .= PHP_EOL;
+        $str_replace .= PHP_EOL;
+        if (is_writable($this->dir))
+        {
+            $file = file($this->dir);
+            foreach ($file as $key => $value)
+            {
+                if ($value == $str)
+                    $file[$key] = $str_replace;
+            }
+        } 
+        return $file;
     }
 
     function fileChar()
@@ -64,12 +83,50 @@ class Fread
             }
             else
             {
-                $msg = "End of file.";
+                $msg = END;
             }
         }
         else
         {
-            $msg = "End of file.";
+            $msg = END;
+        }
+        return $msg;
+    }
+
+    function rewriteChar($str, $char, $char_replace)
+    {
+        $file = [];
+        $str .= PHP_EOL;
+        if (is_writable($this->dir))
+        {
+            $file = file($this->dir);
+            foreach ($file as $key => $value)
+            {
+                if ($value == $str)
+                {
+                    $file[$key] = str_replace($char, $char_replace, $str);
+                }
+            }
+        }
+        return $file;
+    }
+
+    function saveIt($arr)
+    {
+        if (count($arr))
+        {
+            if(!fputs($this->file, implode("", $arr)))
+            {
+                $msg = RW_ERROR;
+            }
+            else
+            {
+                $msg = RW_SAVE;
+            }
+        }
+        else
+        {
+            $msg = RW_ERROR;
         }
         return $msg;
     }
@@ -78,11 +135,11 @@ class Fread
     {
         if (fclose($this->file))
         {
-            $msg = "The file is closed after work.";
+            $msg = CLOSE;
         }
         else
         {
-            $msg = "Could not close file!";
+            $msg = NOT_CLOSE;
         }
         return $msg;
     }

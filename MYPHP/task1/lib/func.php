@@ -32,6 +32,7 @@ function upload()
 
 function dirScan($dir)
 {
+    $i = 0;
     $files = [];
     if (is_dir($dir))
     {
@@ -41,10 +42,12 @@ function dirScan($dir)
             if (is_file($dir . "/" . $file))
             {
                 $size = filesize($dir . '/' . $file);
-                $files[$file]['name'] = $file;
-                $files[$file]['size'] = sizeChek($size);
+                $files[$i]['name'] = $file;
+                $files[$i]['size'] = sizeChek($size);
+                $i++;
             }
         }
+        $files['cnt'] = $i;
     }
     return $files;
 }
@@ -66,37 +69,6 @@ function sizeChek($size)
         $res = (int)$s . " Mb";
     }
     return $res;
-}
-
-function mkTable($arr = [])
-{
-    if (count($arr))
-    {
-        $content = [];
-        ob_start();
-        $i = 1;
-        foreach ($arr as $fname => $file)
-        {
-            ?>
-            <tr>
-                <td><?=$i?></td>
-                <td><?=$file['name']?></td>
-                <td><?=$file['size']?></td>
-                <td><a href="index.php?name=<?=$file['name']?>">Delete</td>
-            </tr>
-            <?php
-                $i++;
-        }
-        $content['cnt'] = $i-1;
-        $content['tab'] = ob_get_clean();
-    }
-    else
-    {
-        $content['cnt'] = 0;
-        $content['err'] = EMPTY_TAB;
-        return $content;
-    }
-    return $content;
 }
 
 function delFile($file, $dir)

@@ -1,30 +1,72 @@
 <?php
-include 'lib/Fread.php';
 include 'config.php';
+include 'lib/Fread.php';
 
 $file = new Fread;
 
+/* b) */
 /* String */
-echo $file->fileEnter(FILE) . "<br><br>";
+ob_start();
+echo "<p>" . $file->fileEnter(FILE) . "</p>";
 
-while ("End of file." != ($s = $file->fileString()))
-{
-    echo $s . "<br>";
-}
+$string = 'Lorem ipsum text2';
+$string_r = 'lal2';
 
-echo "<br>" . $file->fileExit() . "<br><br>";
+echo "Replase string: " . $string . "<br>";
+echo "On string: " . $string_r . "<br>";
+$arr = $file->rewriteStr($string, $string_r);
+echo $file->saveIt($arr) . "<br>";
+
+echo "<br><p>" . $file->fileExit() . "</p>";
+
+$Bstring = ob_get_contents();
+ob_clean();
 
 /* Char */
-echo $file->fileEnter(FILE) . "<br><br>";
+echo "<p>" . $file->fileEnter(FILE) . "</p>";
 
-while ("End of file." != ($s = $file->fileChar()))
+$string = 'LorEm ipsum tExt5';
+$char = 'E';
+$char_r = 'e';
+echo "Replase char in string: " . $string . "<br>";
+echo "Char: " . $char . "<br>";
+echo "On char: " . $char_r . "<br>";
+$arr = $file->rewriteChar($string, $char, $char_r);
+echo $file->saveIt($arr) . "<br>";
+
+echo "<br><p>" . $file->fileExit() . "</p>";
+
+$Bchar = ob_get_contents();
+ob_clean();
+
+
+/* a) */
+/* String */
+echo "<p>" . $file->fileEnter(FILE) . "</p>";
+
+
+while (END != ($s = $file->fileString()))
 {
     echo $s;
 }
 
-echo "<br><br>" . $file->fileExit() . "<br><br>";
+echo "<br><p>" . $file->fileExit() . "</p>";
 
+$Astring = ob_get_contents();
+ob_clean();
 
+/* Char */
+echo "<p>" . $file->fileEnter(FILE) . "</p>";
 
+while (END != ($s = $file->fileChar()))
+{
+    echo $s;
+}
+
+echo "<br><br><p>" . $file->fileExit() . "</p>";
+
+$Achar = ob_get_contents();
+ob_clean();
+ob_end_clean();
 
 include 'template/index.php';
