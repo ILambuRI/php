@@ -9,8 +9,8 @@ $file = new Fread;
 ob_start();
 echo "<p>" . $file->fileEnter(FILE) . "</p>";
 
-$string = 'lal2';
-$string_r = 'Lorem ipsum text2';
+$string = 'Lorem ipsum text2';
+$string_r = 'text2';
 
 echo "Replase string: " . $string . "<br>";
 echo "On string: " . $string_r . "<br>";
@@ -25,9 +25,9 @@ ob_clean();
 /* Char */
 echo "<p>" . $file->fileEnter(FILE) . "</p>";
 
-$string = 'Lorem ipsum text5';
-$char = 'e';
-$char_r = 'E';
+$string = 'LorEm ipsum tExt5';
+$char = 't';
+$char_r = 'T';
 echo "Replase char in string: " . $string . "<br>";
 echo "Char: " . $char . "<br>";
 echo "On char: " . $char_r . "<br>";
@@ -66,7 +66,7 @@ while (END != ($s = $file->fileChar()))
 echo "<br><br><p>" . $file->fileExit() . "</p>";
 
 $Achar = ob_get_contents();
-ob_clean();
+
 ob_end_clean();
 
 include 'template/index.php';
