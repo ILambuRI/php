@@ -6,25 +6,28 @@ function __autoload($class){
 
 try
 {
-    $sql = new MySql;
+    
+    //$sql = new MySql;
     /* Select */
-    $res = $sql->sel('key','data')->from('MY_TEST')->execute();
-    print_r($res);
-    echo "<br><br><br>";
+    //$res = $sql->sel('key','data')->from('MY_TEST')->execute();
+    //print_r($res);
+    //echo "<br><br><br>";
     /* Insert */
-    $res = $sql->ins('MY_TEST','key','data')->value('user10','testuser')->execute();
-    var_dump($res);
-    echo "<br><br><br>";
+    //$res = $sql->ins('MY_TEST','key','data')->value('user10','testuser')->execute();
+    //var_dump($res);
+    //echo "<br><br><br>";
     /* Update */
-    $set_args['key'] = 'user1';
-    $set_args['data'] = 'test1';
-    $res = $sql->upd('MY_TEST')->set($set_args)->where('key','user')->execute();
-    var_dump($res);
-    echo "<br><br><br>";
+    //$set_args['key'] = 'user1';
+   //$set_args['data'] = 'test1';
+    //$res = $sql->upd('MY_TEST')->set($set_args)->where('key','user')->execute();
+    //var_dump($res);
+    //echo "<br><br><br>";
     /* Delete */
-    $res = $sql->del('MY_TEST')->where('key','user11')->execute();
-    var_dump($res);
-    echo "<br><br><br>";
+    //$res = $sql->del('MY_TEST')->where('key','user11')->execute();
+    //var_dump($res);
+    //echo "<br><br><br>";
+    $sql = new Postgresql();
+
 
 }
 catch (Exception $e)

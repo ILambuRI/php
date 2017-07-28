@@ -33,3 +33,4 @@ define('NOT_USE_IT','What are you doing?! Do not use (*) angry human!');
 define('NO_RES','No results! MySQL Error: ');
 define('NO_CONN','No connection to the database! MySQL Error: ');
 define('NO_DB','The base is not selected! MySQL Error: ');
+define('NO_CONN_PG','No connection to the database! PG Error ');
