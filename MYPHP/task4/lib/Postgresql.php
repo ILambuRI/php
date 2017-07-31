@@ -3,6 +3,8 @@ class Postgresql extends Sql
 {
     use tClean;
 
+    protected $link;
+
     public function __construct()
     {
         $conn_string = "host=" .P_HOST. " port=" .P_PORT. " dbname=" .P_DB. " user=" .P_USER. " password=" .P_PASS;

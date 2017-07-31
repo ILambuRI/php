@@ -3,6 +3,8 @@ class MySql extends Sql
 {
     use tClean;
 
+    protected $link;
+
     public function __construct()
     {
         if (!$this->link = mysql_connect(M_HOST, M_USER, M_PASS)) 
