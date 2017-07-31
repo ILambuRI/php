@@ -130,9 +130,13 @@ class Model
     public function sendEmail()
     {
         $arr = $this->getArray();
+        date_default_timezone_set('America/Los_Angeles');
+        $timestemp = time();
+        $date = date("F j, Y, g:i a", $timestemp);
+                    
 
         $subject= $arr['%SUBJ%'];
-        $header="Content-type: text/html; charset=windows-1251 \r\n";
+        $header="Content-type: text/html \r\n";
         $header.= "From: " .$arr['%EMAIL%']. " \r\n";
         $msg="  <html>
                 <body>
@@ -140,7 +144,8 @@ class Model
                     <b>From user " .$arr['%NAME%']. " !</b><br>
                     " .$arr['%MSG%']. " <br>
                     IP: " .$_SERVER["REMOTE_ADDR"]. "<br>
-                    Date: " .date("F j, Y, g:i a"). "<br>
+                    Date: " .$date. "<br>
+                    Reply: " .$arr['%EMAIL%']. "
                 </body>
                 </html>";
         mail(EMAIL, $subject, $msg, $header);

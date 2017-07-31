@@ -31,22 +31,22 @@ try
 
     $my_sql = new MySql();
 
-    $key_m_del = 'task5';
+    $key_m_del = 'user';
     $res_m_del = $my_sql->deleteData($key_m_del);
-    $key_m_save = 'user10'; $val_m_save = 'test5';
+    $key_m_save = 'user10'; $val_m_save = 'task5';
     $res_m_save = $my_sql->saveData($key_m_save, $val_m_save);
-    $key_m_get = 'test5';
+    $key_m_get = 'user10';
     $res_m = $my_sql->getData($key_m_get);
 
     /* PostgreSQL */
 
     $pg_sql = new PostGresql();
 
-    $key_p_del = 'task5';
+    $key_p_del = 'user';
     $res_p_del = $pg_sql->deleteData($key_p_del);
-    $key_p_save = 'user10'; $val_p_save = 'test5';
+    $key_p_save = 'user10'; $val_p_save = 'task5';
     $res_p_save = $pg_sql->saveData($key_p_save, $val_p_save);
-    $key_p_get = 'test5';
+    $key_p_get = 'user10';
     $res_p = $pg_sql->getData($key_p_get);
 
 }

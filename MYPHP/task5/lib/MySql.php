@@ -32,7 +32,7 @@ class MySql implements iWorkData
     {
         $sql = "SELECT `" .POLE1. "`, `" .POLE2. "` 
                 FROM " .TABLE_M. " 
-                WHERE `" .POLE2. "` = '" .$key. "'";
+                WHERE `" .POLE1. "` = '" .$key. "'";
 
         if (!$result = mysql_query($sql, $this->link))
             throw new Exception(NO_RES . mysql_error());
@@ -51,7 +51,7 @@ class MySql implements iWorkData
 
     public function deleteData($key)
     {
-        $sql = "DELETE FROM " .TABLE_M. " WHERE `" .POLE2. "` = '" .$key. "'";
+        $sql = "DELETE FROM " .TABLE_M. " WHERE `" .POLE1. "` = '" .$key. "'";
 
         if (!$result = mysql_query($sql, $this->link))
             throw new Exception(NO_RES . mysql_error());

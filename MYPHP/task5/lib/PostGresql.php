@@ -27,7 +27,7 @@ class PostGresql implements iWorkData
     {
         $sql = "SELECT " .TABLE_P. ".\"" .POLE1. "\", " .TABLE_P. ".\"" .POLE2. "\" 
                 FROM " .TABLE_P. " 
-                WHERE \"" .POLE2. "\" = '" .$key. "'";
+                WHERE \"" .POLE1. "\" = '" .$key. "'";
 
         if (!$result = pg_query($this->link, "$sql"))
             throw new Exception(NO_RES_PG);
@@ -46,7 +46,7 @@ class PostGresql implements iWorkData
 
     public function deleteData($key)
     {
-        $sql = "DELETE FROM " .TABLE_P. " WHERE \"" .POLE2. "\" = '" .$key. "'";
+        $sql = "DELETE FROM " .TABLE_P. " WHERE \"" .POLE1. "\" = '" .$key. "'";
 
         if (!$result = pg_query($this->link, "$sql"))
             throw new Exception(NO_RES_PG);

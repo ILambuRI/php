@@ -26,8 +26,9 @@ define('P_DB','user1');
 define('P_PORT','5432');
 
 /* Helpers */
+//define('TABLE_P'," \"public\".\"PG_TEST\" ");
 define('TABLE_M','MY_TEST');
-define('TABLE_P'," \"public\".\"PG_TEST\" ");
+define('TABLE_P',"PG_TEST");
 define('POLE1','key');
 define('POLE2','data');
 define('SUCCESS','Successful operation.');
