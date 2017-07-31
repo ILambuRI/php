@@ -3,7 +3,6 @@ class Session implements iWorkData
 {
     public function saveData($key, $val)
     {
-        session_start();
         $_SESSION[$key] = $val;
     }
 
@@ -14,7 +13,11 @@ class Session implements iWorkData
     
     public function deleteData($key)
     {
-        session_start();
-        unset($_SESSION[$key]);
+        if ($_SESSION[$key])
+        {
+            unset($_SESSION[$key]);
+            return SUCCESS;
+        }
+        return NO_CHANG;
     }
 }

@@ -71,37 +71,6 @@ function sizeChek($size)
     return $res;
 }
 
-function mkTable($arr = [])
-{
-    if (count($arr))
-    {
-        $content = [];
-        ob_start();
-        $i = 1;
-        foreach ($arr as $fname => $file)
-        {
-            ?>
-            <tr>
-                <td><?=$i?></td>
-                <td><?=$file['name']?></td>
-                <td><?=$file['size']?></td>
-                <td><a href="index.php?name=<?=$file['name']?>">Delete</td>
-            </tr>
-            <?php
-                $i++;
-        }
-        $content['cnt'] = $i-1;
-        $content['tab'] = ob_get_clean();
-    }
-    else
-    {
-        $content['cnt'] = 0;
-        $content['err'] = EMPTY_TAB;
-        return $content;
-    }
-    return $content;
-}
-
 function delFile($file, $dir)
 {
     if (is_dir($dir))

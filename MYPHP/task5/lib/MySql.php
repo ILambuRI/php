@@ -1,54 +1,61 @@
 <?php
-include 'iWorkData.php';
 class MySql implements iWorkData
-{
+{   
+    protected $link;
+
     public function __construct()
     {
-        if (!$this->link = mysql_connect('localhost', 'user1', 'tuser1')) 
+        if (!$this->link = mysql_connect(M_HOST, M_USER, M_PASS)) 
         {
-            echo "No connect MySql!";
-            exit();
+            throw new Exception(NO_CONN . mysql_error());
         }
 
-        if (!mysql_select_db('user1', $this->link))
+        if (!mysql_select_db(M_DB, $this->link))
         {
-                echo "No connect DB!";
-                    exit();
+            throw new Exception(NO_DB . mysql_error());
         }
     }
 
+
     public function saveData($key, $val)
     {
-        $sql    = 'SELECT * FROM MY_TEST';
-        $result = mysql_query($sql, $this->link);
+        $sql = "INSERT INTO " .TABLE_M. "(`" .POLE1. "`, `" .POLE2. "`) 
+                VALUES ('" .$key. "', '" .$val. "')";
 
-        if (!$result)
-        {
-                echo "No result!";
-                    echo 'MySQL Error: ' . mysql_error();
-                    exit;
-        }
-
-
-        while ($row = mysql_fetch_assoc($result))
-        {
-            echo $row['key'] . "<br>";
-            echo $row['data'] . "<br>";
-        }
-
+        if (!$result = mysql_query($sql, $this->link))
+            throw new Exception(NO_RES . mysql_error());
+        
+        return SUCCESS;
     }
 
     public function getData($key)
     {
-        return $_COOKIE[$key];
+        $sql = "SELECT `" .POLE1. "`, `" .POLE2. "` 
+                FROM " .TABLE_M. " 
+                WHERE `" .POLE2. "` = '" .$key. "'";
+
+        if (!$result = mysql_query($sql, $this->link))
+            throw new Exception(NO_RES . mysql_error());
+
+        while ($row = mysql_fetch_assoc($result))
+        {
+            foreach ($row as $key => $val)
+            {
+                $data[][$key] = $val;
+            }
+        }
+
+        mysql_free_result($result);
+        return $data;
     }
 
     public function deleteData($key)
     {
-        setcookie($key, '', time()-1);
-        unset($_COOKIE[$key]);
+        $sql = "DELETE FROM " .TABLE_M. " WHERE `" .POLE2. "` = '" .$key. "'";
+
+        if (!$result = mysql_query($sql, $this->link))
+            throw new Exception(NO_RES . mysql_error());
+        
+        return SUCCESS;
     }
 }
-
-$msql = new MySql();
-$msql->saveData(1,1);

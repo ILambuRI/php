@@ -21,11 +21,8 @@ class MySql extends Sql
         parent::execute();
         $sql    = $this->getQuery();
         if (!$result = mysql_query($sql, $this->link))
-        {
             throw new Exception(NO_RES . mysql_error());
-        }
 
-        $data = [];
         if (is_resource($result))
         {
             while ($row = mysql_fetch_assoc($result))
@@ -39,7 +36,7 @@ class MySql extends Sql
         }
         else
         {
-            $data = $result;
+            $data = SUCCESS;
         }
         $this->cleanProperties();
         return $data;

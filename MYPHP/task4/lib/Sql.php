@@ -9,8 +9,8 @@ class Sql
     protected $del;
     protected $set;
     protected $from;
-    protected $where;
     protected $value;
+    protected $where;
     protected $query;
     
     function setQuery($str)
@@ -23,20 +23,30 @@ class Sql
         return $this->query;
     }
 
-    function sel(...$fields)
+    function sel($db, ...$fields)
     {
         if ($field == '*')
-        {
             throw new Exception(NOT_USE_IT);
-        }
-        $field = $this->makeArgs($fields, "`");
+
+        if($db == 'p')
+            $field = $this->makeArgs($fields, "\"", TABLE_P . ".");
+            // $field = $this->makeArgsPgFields($fields, TABLE_P);
+
+        if($db == 'm')
+            $field = $this->makeArgs($fields, "`");
+
         $this->sel = "SELECT $field ";
         return $this;
     }
 
-    function ins($table, ...$fields)
+    function ins($db, $table, ...$fields)
     {   
-        $field = $this->makeArgs($fields, "`");
+        if($db == 'p')
+            $field = $this->makeArgs($fields, "\"");
+
+        if($db == 'm')
+            $field = $this->makeArgs($fields, "`");
+
         $this->ins = "INSERT INTO $table ($field) ";
         return $this;
     }
@@ -59,35 +69,33 @@ class Sql
         return $this;
     }
 
-    function where($field,$value)
+    function where($db,$field,$value)
     {
-        $this->where = "WHERE `$field` = '$value' ";
+        if($db == 'p')
+            $this->where = "WHERE \"$field\" = '$value' ";
+
+        if($db == 'm')
+            $this->where = "WHERE `$field` = '$value' ";
+
         return $this;
     }
 
-    function set(array $args)
+    function set($db, $args)
     {
-            $pop = $args;
-            $last = array_pop($pop);
-            foreach ($args as $field => $value)
-            {
-                if ($value == $last)
-                {
-                    $sets .= "`$field` = '$value' ";
-                }
-                else
-                {
-                    $sets .= "`$field` = '$value',";
-                }
-            }
-            $this->set = "SET  $sets";
+        if ($db == 'm')
+            $sets = $this->makeArgsSet('m', $args);
+
+        if ($db == 'p')
+            $sets = $this->makeArgsSet('p', $args);
+
+        $this->set = "SET  $sets";
         return $this;
     }
 
     function value(...$values)
     {
         $value = $this->makeArgs($values, "'");
-        $this->select = "VALUE ($value) ";
+        $this->select = "VALUES ($value) ";
         return $this;
     }
 
@@ -95,9 +103,10 @@ class Sql
     {
         foreach ($this as $key => $value) 
         {
-            if ('query' == $key or 'link' == $key) continue;
+            if ('query' == $key or 'link' == $key)
+                continue;
+
             $this->setQuery($this->getQuery() . $value);
         }
-        echo $this->query;
     }
 }
