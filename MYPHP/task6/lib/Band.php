@@ -37,7 +37,7 @@ class Band implements iBand, Iterator
 
     public function addMusician(iMusician $obj, $obj_name)
     {
-        $obj->joinedToBand($this);
+        $obj->assingToBand($this);
         $this->musician[$obj_name] = $obj;
         return $this;
     }

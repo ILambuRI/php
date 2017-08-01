@@ -14,6 +14,9 @@ class PostGresql implements iWorkData
 
     public function saveData($key, $val)
     {
+        if($this->getData($key) !== NULL)
+            return NO_CHANG;
+        
         $sql = "INSERT INTO " .TABLE_P. "(\"" .POLE1. "\", \"" .POLE2. "\") 
                 VALUES ('" .$key. "', '" .$val. "')";
 

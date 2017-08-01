@@ -4,6 +4,7 @@ class Cookie implements iWorkData
     public function saveData($key, $val)
     {
         setcookie($key, $val);
+        $_COOKIE[$key] = $val;
     }
 
     public function getData($key)

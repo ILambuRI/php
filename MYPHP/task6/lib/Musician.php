@@ -25,17 +25,21 @@ class Musician implements iMusician, Iterator
         return $this->name;
     }
 
-    public function joinedToBand(iBand $obj)
+    public function assingToBand(iBand $obj)
     {
-        $name = $obj->getName();
-        $this->band[] = $name;
+        $this->band[] = $obj;
         return $this;
     }
 
     public function getNameBand()
     {
-        $band = implode(', ', $this->band);
-        return $band;
+        $band_name = [];
+        foreach ($this->band as $obj)
+        {
+            $band_name[] = $obj->getName();
+        }
+        $band_name = implode(', ', $band_name);
+        return $band_name;
     }
 
     public function setMusicianType($name)

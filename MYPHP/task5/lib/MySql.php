@@ -5,20 +5,19 @@ class MySql implements iWorkData
 
     public function __construct()
     {
-        if (!$this->link = mysql_connect(M_HOST, M_USER, M_PASS)) 
-        {
+        if (!$this->link = mysql_connect(M_HOST, M_USER, M_PASS))
             throw new Exception(NO_CONN . mysql_error());
-        }
 
         if (!mysql_select_db(M_DB, $this->link))
-        {
             throw new Exception(NO_DB . mysql_error());
-        }
     }
 
 
     public function saveData($key, $val)
     {
+        if($this->getData($key) !== NULL)
+            return NO_CHANG;
+            
         $sql = "INSERT INTO " .TABLE_M. "(`" .POLE1. "`, `" .POLE2. "`) 
                 VALUES ('" .$key. "', '" .$val. "')";
 

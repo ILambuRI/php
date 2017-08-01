@@ -11,6 +11,7 @@
 // define('P_PASS','');
 // define('P_DB','user1');
 // define('P_PORT','5432');
+// define('TABLE_P',"\"public\".\"PG_TEST\"");
 
 /* MySql Class */
 define('M_HOST','localhost');
@@ -24,11 +25,10 @@ define('P_USER','user1');
 define('P_PASS','user1z');
 define('P_DB','user1');
 define('P_PORT','5432');
+define('TABLE_P',"PG_TEST");
 
 /* Helpers */
-//define('TABLE_P'," \"public\".\"PG_TEST\" ");
 define('TABLE_M','MY_TEST');
-define('TABLE_P',"PG_TEST");
 define('POLE1','key');
 define('POLE2','data');
 define('SUCCESS','Successful operation.');
