@@ -25,7 +25,7 @@ try
 
     /* Delete */
     $d_field = POLE1;
-    $d_val = 'user';
+    $d_val = 'user10';
     $d_res = $sql->del(TABLE_M)->where('m', $d_field, $d_val)->execute();
 
     /* Select */
@@ -51,7 +51,7 @@ try
 
     /* Delete */
     $d_field_pg = POLE1;
-    $d_val_pg = 'user';
+    $d_val_pg = 'user10';
     $d_res_pg = $pg_sql->del(TABLE_P)->where('p', $d_field_pg, $d_val_pg)->execute();
 
     /* Select */

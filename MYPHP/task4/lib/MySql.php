@@ -36,6 +36,7 @@ class MySql extends Sql
         {
             $data = SUCCESS;
         }
+        //echo $sql . '<br>';
         $this->cleanProperties();
         return $data;
     }
