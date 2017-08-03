@@ -30,8 +30,9 @@ class Model
 		// 'x-chrome-uma-enabled:1',
 		// 'x-client-data:CI+2yQEIorbJAQjEtskBCPqcygEIqZ3KAQ=='
 		];
-
+		$request = $this->checkForm($request);
 		$ch = curl_init('https://www.google.com.ua/search?q=' .$request);
+		// $ch = curl_init('https://www.google.com.ua/search?q=dog+daw');
 		curl_setopt ($ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -39,7 +40,6 @@ class Model
 		if (!$this->html = curl_exec($ch))
 			throw new Exception(NO_CURL);
 		curl_close($ch);
-
 		return $this;
     }
    
@@ -111,4 +111,15 @@ class Model
 
 		return $data;
 	}
+
+	public function checkForm($data)
+    {
+		$data = trim(strip_tags($data));
+		$data = ereg_replace(" ", "+", $data);
+
+		if (strlen($data) < 1)
+            throw new Exception(NO_RESULTS);
+
+        return $data;		
+    }
 }
