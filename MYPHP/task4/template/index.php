@@ -47,10 +47,17 @@
             </div>
             <div class="col-md-4">
                 <h2>Update:</h2>
+                <?php
+                if (is_array($set_args))
+                {
+                ?>  
                 <h4>Field '<?=key($set_args)?>' record '<?=$set_args[key($set_args)]; next($set_args);?>'.</h4> 
                 <h4>Field '<?=key($set_args)?>' record '<?=$set_args[key($set_args)]?>'.</h4>
                 <h4>Where field '<?=$u_field?>' has a record '<?=$u_val?>'.</h4>
                 <h4>Result: <?=$u_res?></h4>
+                <?php
+                }
+                ?>
             </div>
             <div class="col-md-4">
                 <h2>Delete:</h2>
@@ -96,10 +103,17 @@
             </div>
             <div class="col-md-4">
                 <h2>Update:</h2>
+                <?php
+                if (is_array($set_args_pg))
+                {
+                ?>  
                 <h4>Field '<?=key($set_args_pg)?>' record '<?=$set_args_pg[key($set_args_pg)]; next($set_args_pg);?>'.</h4> 
                 <h4>Field '<?=key($set_args_pg)?>' record '<?=$set_args_pg[key($set_args_pg)]?>'.</h4>
                 <h4>Where field '<?=$u_field_pg?>' has a record '<?=$u_val_pg?>'.</h4>
                 <h4>Result: <?=$u_res_pg?></h4>
+                <?php
+                }
+                ?>
             </div>
             <div class="col-md-4">
                 <h2>Delete:</h2>

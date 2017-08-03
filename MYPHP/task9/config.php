@@ -6,8 +6,10 @@ const OPT_END = '</option>';
 define(TEMPLATE, 'templates/index.php');
 
 /* ERRORs */
-define('NO_OPT_NAME','Please enter NAME for option!');
+define('','Please enter NAME for option!');
+define('NO_BUILD','Build in the beginning: ');
 define('NO_OL_INT','Please enter INT for start= !');
+define('NO_NAME','First, enter a name for: ');
 
 // define('NO_SUBJ','Please enter the correct subject of the letter');
 // define('NO_EMAIL','Please enter a valid email address');

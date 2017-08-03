@@ -56,7 +56,9 @@
             </div>
             <div class="col-md-6">
                 <h1>radiobuttons-group:</h1>
-                <?=$radio?>
+                <?=$radio?><br>
+                <h1>checkbox-group:</h1>
+                <?=$check?>
             </div>
         </div>
         <div class="col-md-10 col-md-offset-1">
