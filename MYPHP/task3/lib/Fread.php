@@ -4,118 +4,108 @@ class Fread
     protected $file;
     protected $dir;
 
-    function __construct()
-    {
-    }
-
-    function fileEnter($dir)
+    function __construct($dir)
     {
         $this->dir = $dir;
-        if (is_file($dir))
-        {
-            if (($this->file = fopen($dir, 'c+')))
-            {
-                $msg = OPEN;
-            }
-            else
-            {
-                $msg = EXIST_NOT_OPEN;
-            }
-        }
-        else
-        {
-            $msg = NOT_EXIST;
-        }
-        return $msg;
     }
 
-    function fileString()
+    function fileString($num)
     {
-        if (!feof($this->file))
+        if (!abs((int)$num))
+            throw new Exception(NOT_INT);
+
+        if(!is_readable($this->dir))
+            throw new Exception(NOT_EXIST);
+
+        $num -= 1;
+        $file = file($this->dir);
+        foreach ($file as $key => $value)
         {
-            if (($string = fgets($this->file)))
-            {
-                $msg = $string . "<br>";
-            }
-            else
-            {
-                $msg = END;
-            }
+            if ($key == $num)
+                $data = $value;
         }
-        else
-        {
-            $msg = END;
-        }
-        return $msg;
+
+        if (!$data)
+            return $data = NO_STRING;
+
+        return $data;
     }
 
-    function rewriteStr($str, $str_replace)
+    function rewriteStr($num, $str_replace)
     {
-        $file = [];
-        $str .= PHP_EOL;
+        $num -= 1;
         $str_replace .= PHP_EOL;
-        if (is_writable($this->dir))
+        if (!is_writable($this->dir))
+            throw new Exception(NOT_WRITE);
+
+        $file = file($this->dir);
+        if (!$file[$num])
+            throw new Exception(NO_STRING);
+
+        foreach ($file as $key => $value)
         {
-            $file = file($this->dir);
-            foreach ($file as $key => $value)
-            {
-                if ($value == $str)
-                    $file[$key] = $str_replace;
-            }
-        } 
+            if ($key == $num)
+                $file[$key] = $str_replace;
+        }
+        
         return $file;
     }
 
-    function fileChar()
+    function fileChar($num, $char)
     {
-        if (!feof($this->file))
+        if (!abs((int)$num) and !abs((int)$char))
+            throw new Exception(NOT_INT);
+
+        if(!is_readable($this->dir))
+            throw new Exception(NOT_EXIST);
+
+        $num -= 1; $char -= 1; 
+        $file = file($this->dir);
+        foreach ($file as $key => $value)
         {
-            if (($char = fgetc($this->file)))
+            if ($key == $num)
             {
-                if ($char == "\n")
-                {
-                    $msg = "<br>";
-                }
-                else
-                {
-                $msg = $char;
-                }
-            }
-            else
-            {
-                $msg = END;
+                $data = $value[$char];
             }
         }
-        else
-        {
-            $msg = END;
-        }
-        return $msg;
+
+        if (!$data)
+            return $data = NO_CHAR;
+
+        return $data;
     }
 
-    function rewriteChar($str, $char, $char_replace)
+    function rewriteChar($num, $num_char, $char_replace)
     {
-        $file = [];
-        $str .= PHP_EOL;
-        if (is_writable($this->dir))
+        $num -= 1; $num_char -= 1;
+        if (!is_writable($this->dir))
+            throw new Exception(NOT_WRITE);
+        if (strlen($char_replace) > 1 || strlen($char_replace) < 1)
+            throw new Exception(NO_MORE_CHAR);
+
+        $file = file($this->dir);
+        foreach ($file as $key => $value)
         {
-            $file = file($this->dir);
-            foreach ($file as $key => $value)
+            if ($key == $num)
             {
-                if ($value == $str)
-                {
-                    $file[$key] = str_replace($char, $char_replace, $str);
-                }
+                if (!$char = $value[$num_char])
+                    throw new Exception(NO_CHAR);
+                // $file[$key] = str_replace($char, $char_replace, $file[$key]);
+                $new_str = $value;
+                $new_str[$num_char] = $char_replace;
+                $file[$key] = $new_str;
             }
         }
+        
         return $file;
     }
 
     function saveIt($arr)
     {
-        if (count($arr))
-        {
-            if(!fputs($this->file, implode("", $arr)))
+        if (!count($arr))
+            return $msg = RW_ERROR;
+
+            if(!file_put_contents($this->dir, implode("", $arr)))
             {
                 $msg = RW_ERROR;
             }
@@ -123,28 +113,38 @@ class Fread
             {
                 $msg = RW_SAVE;
             }
-        }
-        else
-        {
-            $msg = RW_ERROR;
-        }
+        
         return $msg;
     }
 
-    function fileExit()
+    function allTextString()
     {
-        if (fclose($this->file))
-        {
-            $msg = CLOSE;
+        $i = 1;
+        while (NO_STRING !== ($str = $this->fileString($i)))
+        {            
+            $text_str .= $str . '<br>';
+            $i++;
         }
-        else
-        {
-            $msg = NOT_CLOSE;
-        }
-        return $msg;
+
+        return $text_str;
     }
 
-    function __destruct()
+    function allTextChar()
     {
-    } 
+        $i_s = 1;
+        while (NO_STRING !== ($str = $this->fileString($i_s)))
+        {
+            $i_c = 1;
+            while (NO_CHAR !== ($char = $this->fileChar($i_s, $i_c)))
+            {
+                $text_char .= $char;
+                $i_c++;
+            }
+
+            $text_char .= '<br>';
+            $i_s++;
+        }
+
+        return $text_char;
+    }
 }

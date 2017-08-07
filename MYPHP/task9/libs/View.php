@@ -19,7 +19,8 @@ class View
         ob_start();
 		if ($this->data)
 		{
-			foreach ($this->data as $key => $value) {
+			foreach ($this->data as $key => $value)
+            {
 				$$key = $value;
 			}
 		}

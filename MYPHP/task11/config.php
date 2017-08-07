@@ -42,3 +42,8 @@ define('NO_CONN_PG','No connection to the database! PGSQL Error!');
 define('NO_DB','The base is not selected! MySQL Error: ');
 define('NO_TYPE_JOIN','Enter the right type for join!');
 define('NO_INT_LIMIT','Enter the INT for LIMIT!');
+define('NOT_UPD','Nothing to update!');
+define('NOT_DEL','Nothing to delete!');
+define('NOT_EXIST','There is no such field in this table as: ');
+define('NOT_SET','At the beginning, set the value for: ');
+define('NO_VALUES','Set the values for all fields: ');

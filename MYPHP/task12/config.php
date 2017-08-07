@@ -31,7 +31,8 @@ define('TABLE_P',"PG_TEST");
 define('TABLE_M','MY_TEST');
 define('POLE1','key');
 define('POLE2','data');
-define('SUCCESS','Successful operation.');
+define('SUCCESS','Successful operation. ');
+define('NOTHING','There is nothing to do with this request.');
 
 /* ERRORs */
 define('NOT_USE_IT','What are you doing?! Do not use (*) angry human!');

@@ -7,16 +7,11 @@ class Sql
     protected $switch;
     protected $query = '';
 
-    function sel(...$fields)
+    function sel($fields)
     {
-        if($this->db == 'p')
-            $field = $this->makeArgs($fields, "\"", TABLE_P . ".");
-
-        if($this->db == 'm')
-            $field = $this->makeArgs($fields, "`");
-
-        $this->query .= "SELECT $field ";
+        $this->query .= "SELECT $fields ";
         $this->switch = 'select';
+
         return $this;
     }
 
@@ -32,15 +27,10 @@ class Sql
         return $this;
     }
 
-    function ins($table, ...$fields)
+    function ins($table, $fields)
     {   
-        if($this->db == 'p')
-            $field = $this->makeArgs($fields, "\"");
+        $this->query .= "INSERT INTO $table ($fields) ";
 
-        if($this->db == 'm')
-            $field = $this->makeArgs($fields, "`");
-
-        $this->query .= "INSERT INTO $table ($field) ";
         return $this;
     }
 
@@ -62,33 +52,26 @@ class Sql
         return $this;
     }
 
-    function where($field,$value)
+    function where($field, $value)
     {
-        if($this->db == 'p')
-            $this->query .= "WHERE \"$field\" = '$value' ";
-
-        if($this->db == 'm')
-            $this->query .= "WHERE `$field` = '$value' ";
+        $this->query .= "WHERE `$field` = '$value' ";
 
         return $this;
     }
 
     function set($args)
     {
-        if ($this->db == 'm')
-            $sets = $this->makeArgsSet('m', $args);
-
-        if ($this->db == 'p')
-            $sets = $this->makeArgsSet('p', $args);
+        $sets = $this->makeArgsSet('m', $args);
 
         $this->query .= "SET  $sets";
         return $this;
     }
 
-    function value(...$values)
+    function value($values)
     {
-        $value = $this->makeArgs($values, "'");
-        $this->query .= "VALUES ($value) ";
+        $args = $this->makeArgs($values, "'");
+        $this->query .= "VALUES ($args) ";
+
         return $this;
     }
 

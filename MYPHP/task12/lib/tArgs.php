@@ -30,16 +30,16 @@ trait tArgs
             if ($value == $last)
             {
                 if ($db == 'p')
-                    $sets .= "\"$field\" = '$value' ";
+                    $sets .= "$field = $value ";
                 if ($db == 'm')
-                    $sets .= "`$field` = '$value' ";
+                    $sets .= "`$field` = $value ";
             }
             else
             {
                 if ($db == 'p')
-                    $sets .= "\"$field\" = '$value', ";
+                    $sets .= "$field = $value, ";
                 if ($db == 'm')
-                    $sets .= "`$field` = '$value', ";
+                    $sets .= "`$field` = $value, ";
             }
         }
         return $sets;

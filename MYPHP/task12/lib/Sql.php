@@ -62,13 +62,13 @@ class Sql
         return $this;
     }
 
-    function where($field,$value)
+    function where($field, $value)
     {
         if($this->db == 'p')
-            $this->query .= "WHERE \"$field\" = '$value' ";
+            $this->query .= "WHERE $field = $value ";
 
         if($this->db == 'm')
-            $this->query .= "WHERE `$field` = '$value' ";
+            $this->query .= "WHERE `$field` = $value ";
 
         return $this;
     }
@@ -87,7 +87,8 @@ class Sql
 
     function value(...$values)
     {
-        $value = $this->makeArgs($values, "'");
+        // $value = $this->makeArgs($values, "'");
+        $value = implode(',', $values);
         $this->query .= "VALUES ($value) ";
         return $this;
     }

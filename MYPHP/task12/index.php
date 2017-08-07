@@ -7,92 +7,69 @@ function __autoload($class){
 try
 {
     /* MySQL */
-    $sql = new MySql;
+    $pdo = new Db('MS');
 
     /* Insert */
     $i_field1 = POLE1;
     $i_field2 = POLE2;
-    $i_val1 = 'user10';
-    $i_val2 = 'task10';
-    $i_res = $sql->ins(TABLE_M, $i_field1, $i_field2)
-                 ->value($i_val1, $i_val2)->execute();
+    $i_val1 = ':key';
+    $i_val2 = ':data';
+    $i_params = [':key'=>'user10', ':data'=>'MStask12'];
+    $i_res = $pdo->ins(TABLE_M, $i_field1, $i_field2)
+                 ->value($i_val1, $i_val2)->execute($i_params);
 
     /* Update */
-    $set_args[POLE1] = 'user10';
-    $set_args[POLE2] = 'up10';
+    $set_args[POLE1] = ':field1';
+    $set_args[POLE2] = ':field2';
     $u_field = POLE1;
-    $u_val = 'user';
-    $u_res = $sql->upd(TABLE_M)->set($set_args)
-                 ->where($u_field, $u_val)->execute();
-
+    $u_val = "'userMS'";
+    $u_params = [':field1'=>'updPDO', ':field2'=>'PDOtest'];
+    $u_res = $pdo->upd(TABLE_M)->set($set_args)
+                 ->where($u_field, $u_val)->execute($u_params);
+    
     /* Delete */
     $d_field = POLE1;
-    $d_val = 'user';
-    $d_res = $sql->del(TABLE_M)->where($d_field, $d_val)->execute();
+    $d_val = ':val';
+    $d_params = [':val'=>'userMS'];
+    $d_res = $pdo->del(TABLE_M)->where($d_field, $d_val)->execute($d_params);
 
     /* Select */
-    $s_res = $sql->sel(POLE1, POLE2)->from(TABLE_M)->execute();
-    
-    /* Distinct */
-    $s_dis = $sql->sel()->dis(POLE1)->from(TABLE_M)->execute();
+    $pdo_res = $pdo->sel(POLE1, POLE2)->from(TABLE_M)->execute([]);
 
-    /* Fake SQL */
 
-    $fake_sql = $sql->sel()->from('table1')
-                    ->join('lo', 'table2')->join('r', 'table3')
-                    ->on('table.field = table1.field1')
-                    ->group(POLE2)
-                    ->having('MAX', POLE1, '> 200')
-                    ->order(POLE2)
-                    ->limit('10')
-                    ->fakeExecute();
-
-    /*------------------------------------------------------------*/
-
-    /* PostgreSQL */
-    $pg_sql = new Postgresql;
+    /* PGS */
+    $pdo_p = new Db('PGS');
 
     /* Insert */
-    $i_field1_pg = POLE1;
-    $i_field2_pg = POLE2;
-    $i_val1_pg = 'user10';
-    $i_val2_pg = 'task10';
-    $i_res_pg = $pg_sql->ins(TABLE_P, $i_field1_pg, $i_field2_pg)
-                       ->value($i_val1_pg, $i_val2_pg)->execute();
-    
+    $i_field1_p = POLE1;
+    $i_field2_p = POLE2;
+    $i_val1_p = ':key';
+    $i_val2_p = ':data';
+    $i_params_p = [':key'=>'user10', ':data'=>'PGtask12'];
+    $i_res_p = $pdo_p->ins(TABLE_P, $i_field1_p, $i_field2_p)
+                 ->value($i_val1_p, $i_val2_p)->execute($i_params_p);
 
     /* Update */
-    $set_args_pg[POLE1] = 'user10';
-    $set_args_pg[POLE2] = 'test10';
-    $u_field_pg = POLE1;
-    $u_val_pg = 'user';
-    $u_res_pg = $pg_sql->upd(TABLE_P)->set($set_args_pg)
-                       ->where($u_field_pg, $u_val_pg)->execute();
-
+    $set_args_p[POLE1] = ":field1";
+    $set_args_p[POLE2] = ":field2";
+    $u_field_p = POLE1;
+    $u_val_p = "'userPG'";
+    $u_params_p = [':field1'=>'updPDO', ':field2'=>'PDOtest'];
+    $u_res_p = $pdo_p->upd(TABLE_P)->set($set_args_p)
+                 ->where($u_field_p, $u_val_p)->execute($u_params_p);
+    
     /* Delete */
-    $d_field_pg = POLE1;
-    $d_val_pg = 'user';
-    $d_res_pg = $pg_sql->del(TABLE_P)->where($d_field_pg, $d_val_pg)->execute();
+    $d_field_p = POLE1;
+    $d_val_p = ':val';
+    $d_params_p = [':val'=>'userPG'];
+    $d_res_p = $pdo_p->del(TABLE_P)->where($d_field_p, $d_val_p)->execute($d_params_p);
 
     /* Select */
-    $s_res_pg = $pg_sql->sel(POLE1, POLE2)->from(TABLE_P)->execute();
-
-    /* Distinct */
-    $s_dis_p = $pg_sql->sel()->dis(POLE2)->from(TABLE_P)->execute();
-
-    /* Fake SQL */
-
-    $fake_sql_p = $pg_sql->sel()->from('table1')
-                        ->join('lo', 'table2')->join('r', 'table3')
-                        ->on('table.field = table1.field1')
-                        ->group(POLE2)
-                        ->having('MAX', POLE1, '> 200')
-                        ->order(POLE2)
-                        ->limit(10)
-                        ->fakeExecute();
-
-    // echo extension_loaded('pgsql') ? 'yes':'no';
-    //pg_query($pg_sql->link, "INSERT INTO pg_test (key, data) VALUES ('user1','test1')");
+    $pdo_res_p = $pdo_p->sel(POLE1, POLE2)->from(TABLE_P)->execute([]);
+}
+catch (PDOException $e)
+{
+    $pdo_error = 'Problems with the PDO: ' .$e->getMessage(). ' Code: ' .$e->getCode(). ' On line:' . $e->getLine();
 }
 catch (Exception $e)
 {
