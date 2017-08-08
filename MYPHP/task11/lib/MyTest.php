@@ -88,7 +88,7 @@ class MyTest extends MySql
             if ($field[$f] && $field[$f] !== $v)
             {
                 $args[$f] = $v;
-               $res = $this->upd($this->table)->set($args)->where(key($field), $field[key($field)])->execute();
+                $res = $this->upd($this->table)->set($args)->where(key($field), $field[key($field)])->execute();
             }
         }
 
