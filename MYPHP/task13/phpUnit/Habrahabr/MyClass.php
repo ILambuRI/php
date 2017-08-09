@@ -1,6 +1,5 @@
 <?php
 // namespace phpUnit\Habrahabr;
-class MathException extends Exception {};
 
 class MyClass {
 
@@ -13,7 +12,7 @@ class MyClass {
     {
         if (!(boolean)$y)
         {
-            throw new MathException('Division by zero');
+            throw new Exception('Division by zero');
         }
         return $x / $y;
     }

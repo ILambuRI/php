@@ -16,6 +16,14 @@ class CalcTest extends PHPUnit_Framework_TestCase
         $this->fixture = NULL;
     }
 
+    public function testFailure()
+    {
+        $this->assertClassHasAttribute('a', 'Calc');
+        $this->assertClassHasAttribute('b', 'Calc');
+        $this->assertClassHasAttribute('num', 'Calc');
+        $this->assertClassHasAttribute('rm', 'Calc');
+    }
+
     /** 
     * @dataProvider providerPlus 
     */
