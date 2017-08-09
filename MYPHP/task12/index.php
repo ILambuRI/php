@@ -23,7 +23,7 @@ try
     $set_args[POLE2] = ':field2';
     $u_field = POLE1;
     $u_val = "'userMS'";
-    $u_params = [':field1'=>'updPDO', ':field2'=>'PDOtest'];
+    $u_params = [':field1'=>'user10', ':field2'=>'UPDTest'];
     $u_res = $pdo->upd(TABLE_M)->set($set_args)
                  ->where($u_field, $u_val)->execute($u_params);
     
@@ -54,7 +54,7 @@ try
     $set_args_p[POLE2] = ":field2";
     $u_field_p = POLE1;
     $u_val_p = "'userPG'";
-    $u_params_p = [':field1'=>'updPDO', ':field2'=>'PDOtest'];
+    $u_params_p = [':field1'=>'user10', ':field2'=>'UPDTest'];
     $u_res_p = $pdo_p->upd(TABLE_P)->set($set_args_p)
                  ->where($u_field_p, $u_val_p)->execute($u_params_p);
     

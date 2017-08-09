@@ -1,0 +1,238 @@
+mysql> select `id` from task2 where `id`=400000;
++--------+
+| id     |
++--------+
+| 400000 |
++--------+
+1 row in set (1.54 sec)
+
+
+mysql> select `name` from task2 where `id`=400000;
++------------------------------------------------------------------------------------------------------+
+| name                                                                                                 |
++------------------------------------------------------------------------------------------------------+
+| gKZp2R0ZSWh1XA*zHEGuCnO9*UuVchJkqkR3*v40BF3yr1m2**vSt*zdBkHOA9dAJJ4N3ObE8EOC*e93xC7hS9luJxsmZtIk*b*O |
++------------------------------------------------------------------------------------------------------+
+1 row in set (0.62 sec)
+
+
+mysql> select `description` from task2 where `name`='gKZp2R0ZSWh1XA*zHEGuCnO9*UuVchJkqkR3*v40BF3yr1m2**vSt*zdBkHOA9dAJJ4N3ObE8EOC*e93xC7hS9luJxsmZtIk*b*O';
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| description                                                                                                                                                                                                                                                                                                  |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| qg48MhwNoXE2faDNQ**j*aXAblIcXI*X*pqJWw81VxjMw29WI6PM72kFHdJu1NI3xIRV3cAQrMjyFUO6tRnCzQuJDaaQHO3JVz3Ar1qoGmSia2Uba*Os9sLwwPWIT*Wk**Ir1I9ZeaPc4Di6Sc0agiejrTsOCVdCE1J6Ny*KuI3T3ne*lW*A3sKzH11l0**s1NQS*8pnuu2R9*DIAWo4Vd7p*kG7yVQelqRm8*0Hup2Hi*ZLXPht*TA3*b1bL2kr2*7l**xgk63D465*mRcyoVrmLA0R2KIyHuWTbV10sJe8 |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.64 sec)
+
+
+mysql> select `name` from task2 where `description`='qg48MhwNoXE2faDNQ**j*aXAblIcXI*X*pqJWw81VxjMw29WI6PM72kFHdJu1NI3xIRV3cAQrMjyFUO6tRnCzQuJDaaQHO3JVz3Ar1qoGmSia2Uba*Os9sLwwPWIT*Wk**Ir1I9ZeaPc4Di6Sc0agiejrTsOCVdCE1J6Ny*KuI3T3ne*lW*A3sKzH11l0**s1NQS*8pnuu2R9*DIAWo4Vd7p*kG7yVQelqRm8*0Hup2Hi*ZLXPht*TA3*b1bL2kr2*7l**xgk63D465*mRcyoVrmLA0R2KIyHuWTbV10sJe8';
++------------------------------------------------------------------------------------------------------+
+| name                                                                                                 |
++------------------------------------------------------------------------------------------------------+
+| gKZp2R0ZSWh1XA*zHEGuCnO9*UuVchJkqkR3*v40BF3yr1m2**vSt*zdBkHOA9dAJJ4N3ObE8EOC*e93xC7hS9luJxsmZtIk*b*O |
++------------------------------------------------------------------------------------------------------+
+1 row in set (0.65 sec)
+
+
+mysql> SHOW SESSION STATUS LIKE 'Last_query_cost'
+    -> ;
++-----------------+---------------+
+| Variable_name   | Value         |
++-----------------+---------------+
+| Last_query_cost | 150294.967750 |
++-----------------+---------------+
+1 row in set (0.00 sec)
+
+******************************************************************************************************************
+
+mysql> explain select `id` from task2 where `id`=400000;
++----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
+| id | select_type | table | type | possible_keys | key  | key_len | ref  | rows   | Extra       |
++----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
+|  1 | SIMPLE      | task2 | ALL  | NULL          | NULL | NULL    | NULL | 500000 | Using where |
++----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
+1 row in set (0.00 sec)
+
+
+mysql> explain select `name` from task2 where `id`=400000;
++----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
+| id | select_type | table | type | possible_keys | key  | key_len | ref  | rows   | Extra       |
++----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
+|  1 | SIMPLE      | task2 | ALL  | NULL          | NULL | NULL    | NULL | 500000 | Using where |
++----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
+1 row in set (0.00 sec)
+
+
+mysql> explain select `description` from task2 where `name`='gKZp2R0ZSWh1XA*zHEGuCnO9*UuVchJkqkR3*v40BF3yr1m2**vSt*zdBkHOA9dAJJ4N3ObE8EOC*e93xC7hS9luJxsmZtIk*b*O';
++----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
+| id | select_type | table | type | possible_keys | key  | key_len | ref  | rows   | Extra       |
++----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
+|  1 | SIMPLE      | task2 | ALL  | NULL          | NULL | NULL    | NULL | 500000 | Using where |
++----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
+1 row in set (0.00 sec)
+
+
+mysql> explain select `name` from task2 where `description`='qg48MhwNoXE2faDNQ**j*aXAblIcXI*X*pqJWw81VxjMw29WI6PM72kFHdJu1NI3xIRV3cAQrMjyFUO6tRnCzQuJDaaQHO3JVz3Ar1qoGmSia2Uba*Os9sLwwPWIT*Wk**Ir1I9ZeaPc4Di6Sc0agiejrTsOCVdCE1J6Ny*KuI3T3ne*lW*A3sKzH11l0**s1NQS*8pnuu2R9*DIAWo4Vd7p*kG7yVQelqRm8*0Hup2Hi*ZLXPht*TA3*b1bL2kr2*7l**xgk63D465*mRcyoVrmLA0R2KIyHuWTbV10sJe8';
++----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
+| id | select_type | table | type | possible_keys | key  | key_len | ref  | rows   | Extra       |
++----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
+|  1 | SIMPLE      | task2 | ALL  | NULL          | NULL | NULL    | NULL | 500000 | Using where |
++----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
+1 row in set (0.00 sec)
+
+*******************************************************************************************************************
+
+
+mysql> ALTER TABLE task2 ADD INDEX test1(name);
+Query OK, 500000 rows affected (23.22 sec)
+Records: 500000  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE task2 ADD INDEX test2(description(300));
+Query OK, 500000 rows affected (20.01 sec)
+Records: 500000  Duplicates: 0  Warnings: 0
+
+
+mysql> select `description` from task2 where `name`='gKZp2R0ZSWh1XA*zHEGuCnO9*UuVchJkqkR3*v40BF3yr1m2**vSt*zdBkHOA9dAJJ4N3ObE8EOC*e93xC7hS9luJxsmZtIk*b*O';
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| description                                                                                                                                                                                                                                                                                                  |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| qg48MhwNoXE2faDNQ**j*aXAblIcXI*X*pqJWw81VxjMw29WI6PM72kFHdJu1NI3xIRV3cAQrMjyFUO6tRnCzQuJDaaQHO3JVz3Ar1qoGmSia2Uba*Os9sLwwPWIT*Wk**Ir1I9ZeaPc4Di6Sc0agiejrTsOCVdCE1J6Ny*KuI3T3ne*lW*A3sKzH11l0**s1NQS*8pnuu2R9*DIAWo4Vd7p*kG7yVQelqRm8*0Hup2Hi*ZLXPht*TA3*b1bL2kr2*7l**xgk63D465*mRcyoVrmLA0R2KIyHuWTbV10sJe8 |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (2.65 sec)
+
+
+mysql> select `name` from task2 where `description`='qg48MhwNoXE2faDNQ**j*aXAblIcXI*X*pqJWw81VxjMw29WI6PM72kFHdJu1NI3xIRV3cAQrMjyFUO6tRnCzQuJDaaQHO3JVz3Ar1qoGmSia2Uba*Os9sLwwPWIT*Wk**Ir1I9ZeaPc4Di6Sc0agiejrTsOCVdCE1J6Ny*KuI3T3ne*lW*A3sKzH11l0**s1NQS*8pnuu2R9*DIAWo4Vd7p*kG7yVQelqRm8*0Hup2Hi*ZLXPht*TA3*b1bL2kr2*7l**xgk63D465*mRcyoVrmLA0R2KIyHuWTbV10sJe8';
++------------------------------------------------------------------------------------------------------+
+| name                                                                                                 |
++------------------------------------------------------------------------------------------------------+
+| gKZp2R0ZSWh1XA*zHEGuCnO9*UuVchJkqkR3*v40BF3yr1m2**vSt*zdBkHOA9dAJJ4N3ObE8EOC*e93xC7hS9luJxsmZtIk*b*O |
++------------------------------------------------------------------------------------------------------+
+1 row in set (0.06 sec)
+
+
+mysql> explain select `name` from task2 where `description`='qg48MhwNoXE2faDNQ**j*aXAblIcXI*X*pqJWw81VxjMw29WI6PM72kFHdJu1NI3xIRV3cAQrMjyFUO6tRnCzQuJDaaQHO3JVz3Ar1qoGmSia2Uba*Os9sLwwPWIT*Wk**Ir1I9ZeaPc4Di6Sc0agiejrTsOCVdCE1J6Ny*KuI3T3ne*lW*A3sKzH11l0**s1NQS*8pnuu2R9*DIAWo4Vd7p*kG7yVQelqRm8*0Hup2Hi*ZLXPht*TA3*b1bL2kr2*7l**xgk63D465*mRcyoVrmLA0R2KIyHuWTbV10sJe8';
++----+-------------+-------+------+---------------+-------+---------+-------+------+-------------+
+| id | select_type | table | type | possible_keys | key   | key_len | ref   | rows | Extra       |
++----+-------------+-------+------+---------------+-------+---------+-------+------+-------------+
+|  1 | SIMPLE      | task2 | ref  | test2         | test2 | 302     | const |    1 | Using where |
++----+-------------+-------+------+---------------+-------+---------+-------+------+-------------+
+1 row in set (0.00 sec)
+
+
+mysql> explain select `description` from task2 where `name`='gKZp2R0ZSWh1XA*zHEGuCnO9*UuVchJkqkR3*v40BF3yr1m2**vSt*zdBkHOA9dAJJ4N3ObE8EOC*e93xC7hS9luJxsmZtIk*b*O';
++----+-------------+-------+------+---------------+-------+---------+-------+------+-------------+
+| id | select_type | table | type | possible_keys | key   | key_len | ref   | rows | Extra       |
++----+-------------+-------+------+---------------+-------+---------+-------+------+-------------+
+|  1 | SIMPLE      | task2 | ref  | test1         | test1 | 257     | const |    1 | Using where |
++----+-------------+-------+------+---------------+-------+---------+-------+------+-------------+
+1 row in set (0.00 sec)
+
+
+mysql> SHOW SESSION STATUS LIKE 'Last_query_cost'
+    -> ;
++-----------------+----------+
+| Variable_name   | Value    |
++-----------------+----------+
+| Last_query_cost | 1.199000 |
++-----------------+----------+
+1 row in set (0.00 sec)
+
+******************************************************************************************************************
+******************************************************************************************************************
+******************************************************************************************************************
+
+
+user10=> select name from task2 where id=400000;
+                                                 name                                                
+------------------------------------------------------------------------------------------------------
+ BHJYgnLL2EUol3*kAEPxhNr1K*Cw**pCNdp1otHbJ8AepQ31ey1o*shUzLO*OrWAj34EevMPDk**IoI3WBbAU6uKuwYsyiEQn*ek
+(1 row)
+
+Time: 551.273 ms
+
+
+user10=> select "desc" from task2 where name = 'BHJYgnLL2EUol3*kAEPxhNr1K*Cw**pCNdp1otHbJ8AepQ31ey1o*shUzLO*OrWAj34EevMPDk**IoI3WBbAU6uKuwYsyiEQn*ek';
+                                                                                                                                                     desc                                                 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ c2fNrwR*47L*fz918YGHI5MzH1Z*pVh901gF7LEPm5I68mo*qqFI65LrM1ev*oD9BKcvCN*1vMoExRAxTr1eWBupxl0xTwAp2F90l728nNxupWiqHrdkP1F1Bc*1b8NsegX6V*1PV*d*A4*yWeZ57tifmuQ0HnSO3dyaaf2Fd*CV2D1*G2pvSTjL*MoF*282*N4*PjV*hhWDO5XQI3VpS1g0TQvR1Ezlm6ovB*w3rFA*sx01*cnQq3*G3dluG1D*K3d0Pt4qO3*2*9Y1D*3Do2mn9C9r*scJ*hyO4FLnSOeA
+(1 row)
+
+Time: 791.819 ms
+
+
+user10=> select "name" from task2 where "desc" = 'c2fNrwR*47L*fz918YGHI5MzH1Z*pVh901gF7LEPm5I68mo*qqFI65LrM1ev*oD9BKcvCN*1vMoExRAxTr1eWBupxl0xTwAp2F90l728nNxupWiqHrdkP1F1Bc*1b8NsegX6V*1PV*d*A4*yWeZ57tifmuQ0HnSO3dyaaf2Fd*CV2D1*G2pvSTjL*MoF*282*N4*PjV*hhWDO5XQI3VpS1g0TQvR1Ezlm6ovB*w3rFA*sx01*cnQq3*G3dluG1D*K3d0Pt4qO3*2*9Y1D*3Do2mn9C9r*scJ*hyO4FLnSOeA';
+                                                 name                                                
+------------------------------------------------------------------------------------------------------
+ BHJYgnLL2EUol3*kAEPxhNr1K*Cw**pCNdp1otHbJ8AepQ31ey1o*shUzLO*OrWAj34EevMPDk**IoI3WBbAU6uKuwYsyiEQn*ek
+(1 row)
+
+Time: 665.723 ms
+
+
+******************************************************************************************************************
+
+user10=> explain select "desc" from task2 where name = 'BHJYgnLL2EUol3*kAEPxhNr1K*Cw**pCNdp1otHbJ8AepQ31ey1o*shUzLO*OrWAj34EevMPDk**IoI3WBbAU6uKuwYsyiEQn*ek';
+                                                               QUERY PLAN                            
+-----------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on task2  (cost=0.00..34013.18 rows=1 width=304)
+   Filter: ((name)::text = 'BHJYgnLL2EUol3*kAEPxhNr1K*Cw**pCNdp1otHbJ8AepQ31ey1o*shUzLO*OrWAj34EevMPDk**IoI3WBbAU6uKuwYsyiEQn*ek'::text)
+(2 rows)
+
+Time: 0.673 ms
+
+
+user10=> explain select "name" from task2 where "desc" = 'c2fNrwR*47L*fz918YGHI5MzH1Z*pVh901gF7LEPm5I68mo*qqFI65LrM1ev*oD9BKcvCN*1vMoExRAxTr1eWBupxl0xTwAp2F90l728nNxupWiqHrdkP1F1Bc*1b8NsegX6V*1PV*d*A4*yWeZ57tifmuQ0HnSO3dyaaf2Fd*CV2D1*G2pvSTjL*MoF*282*N4*PjV*hhWDO5XQI3VpS1g0TQvR1Ezlm6ovB*w3rFA*sx01*cnQq3*G3dluG1D*K3d0Pt4qO3*2*9Y1D*3Do2mn9C9r*scJ*hyO4FLnSOeA';
+                                                                                                                                                                QUERY PLAN                                                                                                                                     
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on task2  (cost=0.00..34013.18 rows=1 width=101)
+   Filter: ("desc" = 'c2fNrwR*47L*fz918YGHI5MzH1Z*pVh901gF7LEPm5I68mo*qqFI65LrM1ev*oD9BKcvCN*1vMoExRAxTr1eWBupxl0xTwAp2F90l728nNxupWiqHrdkP1F1Bc*1b8NsegX6V*1PV*d*A4*yWeZ57tifmuQ0HnSO3dyaaf2Fd*CV2D1*G2pvSTjL*MoF*282*N4*PjV*hhWDO5XQI3VpS1g0TQvR1Ezlm6ovB*w3rFA*sx01*cnQq3*G3dluG1D*K3d0Pt4qO3*2*9Y1D*3Do2mn9C9r*scJ*hyO4FLnSOeA'::text)
+(2 rows)
+
+Time: 0.397 ms
+
+*******************************************************************************************************************
+
+user10=> create index test1 on task2(name);
+CREATE INDEX
+Time: 10156.475 ms
+
+user10=> create index test2 on task2("desc");
+CREATE INDEX
+Time: 17032.781 ms
+
+
+user10=> select "desc" from task2 where name = 'BHJYgnLL2EUol3*kAEPxhNr1K*Cw**pCNdp1otHbJ8AepQ31ey1o*shUzLO*OrWAj34EevMPDk**IoI3WBbAU6uKuwYsyiEQn*ek';                                                                                                                                                                                                         desc                                                 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ c2fNrwR*47L*fz918YGHI5MzH1Z*pVh901gF7LEPm5I68mo*qqFI65LrM1ev*oD9BKcvCN*1vMoExRAxTr1eWBupxl0xTwAp2F90l728nNxupWiqHrdkP1F1Bc*1b8NsegX6V*1PV*d*A4*yWeZ57tifmuQ0HnSO3dyaaf2Fd*CV2D1*G2pvSTjL*MoF*282*N4*PjV*hhWDO5XQI3VpS1g0TQvR1Ezlm6ovB*w3rFA*sx01*cnQq3*G3dluG1D*K3d0Pt4qO3*2*9Y1D*3Do2mn9C9r*scJ*hyO4FLnSOeA
+(1 row)
+
+Time: 1362.367 ms
+
+
+user10=> select "name" from task2 where "desc" = 'c2fNrwR*47L*fz918YGHI5MzH1Z*pVh901gF7LEPm5I68mo*qqFI65LrM1ev*oD9BKcvCN*1vMoExRAxTr1eWBupxl0xTwAp2F90l728nNxupWiqHrdkP1F1Bc*1b8NsegX6V*1PV*d*A4*yWeZ57tifmuQ0HnSO3dyaaf2Fd*CV2D1*G2pvSTjL*MoF*282*N4*PjV*hhWDO5XQI3VpS1g0TQvR1Ezlm6ovB*w3rFA*sx01*cnQq3*G3dluG1D*K3d0Pt4qO3*2*9Y1D*3Do2mn9C9r*scJ*hyO4FLnSOeA';
+                                                 name                                                
+------------------------------------------------------------------------------------------------------
+ BHJYgnLL2EUol3*kAEPxhNr1K*Cw**pCNdp1otHbJ8AepQ31ey1o*shUzLO*OrWAj34EevMPDk**IoI3WBbAU6uKuwYsyiEQn*ek
+(1 row)
+
+Time: 0.687 ms
+
+********************************************************************************************************************
+
+user10=> explain select "name" from task2 where "desc" = 'c2fNrwR*47L*fz918YGHI5MzH1Z*pVh901gF7LEPm5I68mo*qqFI65LrM1ev*oD9BKcvCN*1vMoExRAxTr1eWBupxl0xTwAp2F90l728nNxupWiqHrdkP1F1Bc*1b8NsegX6V*1PV*d*A4*yWeZ57tifmuQ0HnSO3dyaaf2Fd*CV2D1*G2pvSTjL*MoF*282*N4*PjV*hhWDO5XQI3VpS1g0TQvR1Ezlm6ovB*w3rFA*sx01*cnQq3*G3dluG1D*K3d0Pt4qO3*2*9Y1D*3Do2mn9C9r*scJ*hyO4FLnSOeA';
+                                                                                                                                                                  QUERY PLAN                                                                                                                                   
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Index Scan using test2 on task2  (cost=0.67..8.69 rows=1 width=101)
+   Index Cond: ("desc" = 'c2fNrwR*47L*fz918YGHI5MzH1Z*pVh901gF7LEPm5I68mo*qqFI65LrM1ev*oD9BKcvCN*1vMoExRAxTr1eWBupxl0xTwAp2F90l728nNxupWiqHrdkP1F1Bc*1b8NsegX6V*1PV*d*A4*yWeZ57tifmuQ0HnSO3dyaaf2Fd*CV2D1*G2pvSTjL*MoF*282*N4*PjV*hhWDO5XQI3VpS1g0TQvR1Ezlm6ovB*w3rFA*sx01*cnQq3*G3dluG1D*K3d0Pt4qO3*2*9Y1D*3Do2mn9C9r*scJ*hyO4FLnSOeA'::text)
+(2 rows)
+
+Time: 0.736 ms
+
+
+user10=> explain select "desc" from task2 where name = 'BHJYgnLL2EUol3*kAEPxhNr1K*Cw**pCNdp1otHbJ8AepQ31ey1o*shUzLO*OrWAj34EevMPDk**IoI3WBbAU6uKuwYsyiEQn*ek';                                                                                                             QUERY PLAN                          
+---------------------------------------------------------------------------------------------------------------------------------------------
+ Index Scan using test1 on task2  (cost=0.55..8.56 rows=1 width=304)
+   Index Cond: ((name)::text = 'BHJYgnLL2EUol3*kAEPxhNr1K*Cw**pCNdp1otHbJ8AepQ31ey1o*shUzLO*OrWAj34EevMPDk**IoI3WBbAU6uKuwYsyiEQn*ek'::text)
+(2 rows)
+
+Time: 0.497 ms

@@ -11,17 +11,17 @@ try
     $allfields = $ar->sayAllFields();
 
     /* Sets */
-    $ar->key = 'saveIt';
-    $ar->data = 'test';
+    $ar->key = 'user10';
+    $ar->data = 'saveIt';
     $v1_set = $ar->key;
     $v2_set = $ar->data;
     $res_set = $ar->saveIt();
 
     /* Update */
     $f_u_s = 'key';
-    $v_u_s = 'user';
+    $v_u_s = 'userAR';
     $f_u = 'data';
-    $v_u = 'updUser';
+    $v_u = 'updUser10';
     $res_upd = $ar->takeAnd($f_u_s, $v_u_s)->update($f_u, $v_u);
 
     /* Insert */
@@ -31,7 +31,7 @@ try
 
     /* Delete */
     $f_d = 'key';
-    $v_d = 'user';
+    $v_d = 'userAR';
     $res_del = $ar->delete($f_d, $v_d);
     
     /* Select */
