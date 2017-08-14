@@ -1,0 +1,236 @@
+1
+SELECT model, speed, hd
+FROM PC 
+WHERE price < 500
+
+2
+SELECT DISTINCT maker
+FROM product
+WHERE type = 'Printer'
+
+3
+SELECT model, ram, screen
+FROM Laptop
+WHERE price > 1000
+
+4
+SELECT *
+FROM printer
+WHERE color = 'y'
+
+5
+SELECT model, speed, hd
+FROM PC
+WHERE (cd = '12x' OR cd = '24x')
+AND price < 600
+
+6
+SELECT DISTINCT P.maker, L.speed
+FROM Product as P
+LEFT JOIN Laptop as L
+ON L.model = P.model
+WHERE L.hd > 9.0
+
+7 
+SELECT DISTINCT P.model, PC.price
+FROM Product as P
+INNER JOIN PC
+ON PC.model = P.model
+WHERE maker = 'B'
+UNION
+SELECT DISTINCT P.model, Laptop.price
+FROM Product as P
+INNER JOIN Laptop
+ON Laptop.model = P.model
+WHERE maker = 'B'
+UNION
+SELECT DISTINCT P.model, Printer.price
+FROM Product as P
+INNER JOIN Printer
+ON Printer.model = P.model
+WHERE maker = 'B'
+
+8
+SELECT maker
+FROM product
+WHERE type = 'PC'
+EXCEPT
+SELECT maker
+FROM product
+WHERE type = 'Laptop'
+
+9
+SELECT DISTINCT Product.maker
+FROM Product
+INNER JOIN PC
+ON PC.model = Product.model
+WHERE PC.speed >= 450
+
+10
+SELECT model, price
+FROM Printer
+WHERE price = (SELECT MAX(price) FROM Printer)
+
+11
+SELECT AVG(speed) as midle_speed
+FROM PC
+
+12
+SELECT AVG(speed) as midle_speed
+FROM Laptop WHERE price > 1000
+
+13
+SELECT AVG(PC.speed) as midle_speed
+FROM PC INNER JOIN Product
+ON PC.model = Product.model
+WHERE Product.maker = 'A'
+
+14
+SELECT maker, MAX(type) as type
+FROM Product 
+GROUP BY maker 
+HAVING COUNT(DISTINCT type) = 1 AND COUNT(model) > 1
+
+15
+SELECT hd 
+FROM PC 
+GROUP BY hd 
+HAVING COUNT(hd) >= 2
+
+16
+SELECT DISTINCT A.model AS m1, B.model AS m2, A.speed, A.ram
+FROM PC AS A, PC AS B
+WHERE A.model > B.model
+AND A.ram = B.ram
+AND A.speed = B.speed
+
+17
+SELECT DISTINCT P.type, L.model, L.speed 
+FROM Product as P, Laptop as L
+WHERE P.type = 'Laptop'
+AND L.speed < ANY(SELECT MIN(speed) FROM PC)
+
+
+18
+SELECT DISTINCT P.maker, Pr.price
+FROM Product as P
+INNER JOIN Printer as Pr
+ON Pr.model = P.model
+WHERE Pr.color = 'y'
+AND Pr.price IN(SELECT MIN(price) FROM Printer WHERE color = 'y')
+
+19
+SELECT Product.maker, AVG(Laptop.screen) AS midle_screen
+FROM Product
+INNER JOIN Laptop
+ON Product.model = Laptop.model
+GROUP BY maker
+
+20
+SELECT maker, COUNT(model) as CNT
+FROM Product
+WHERE type = 'PC'
+GROUP BY maker
+HAVING COUNT(model) >= 3
+
+21
+SELECT DISTINCT P.maker, MAX(PC.price) as max_price
+FROM Product as P
+INNER JOIN PC
+ON P.model = PC.model
+GROUP BY maker
+
+22
+SELECT DISTINCT speed, AVG(price)
+FROM PC
+WHERE speed > 600
+GROUP BY speed
+
+23
+SELECT P.maker
+FROM Product as P
+INNER JOIN PC
+ON P.model = PC.model
+WHERE PC.speed >=750
+INTERSECT
+SELECT P.maker
+FROM Product as P
+INNER JOIN Laptop
+ON P.model = Laptop.model
+WHERE Laptop.speed >=750
+
+24
+WITH all_base
+AS (SELECT model, MAX(price) as max_pr FROM PC
+GROUP BY model
+UNION ALL
+SELECT model, MAX(price) as max_pr FROM Laptop
+GROUP BY model
+UNION ALL
+SELECT model, MAX(price) as max_pr FROM Printer
+GROUP BY model)
+SELECT model FROM all_base WHERE max_pr = (SELECT MAX(max_pr) FROM all_base)
+
+25
+SELECT DISTINCT maker 
+FROM Product
+WHERE maker IN (SELECT maker FROM product WHERE type = 'Printer')
+AND model IN (SELECT model FROM PC WHERE ram = (SELECT MIN(ram) FROM PC )
+AND speed = (SELECT MAX(speed) FROM PC WHERE ram = (SELECT MIN(ram) FROM PC)))
+
+26
+SELECT AVG (sum.midle_price) as avg_pc_lap FROM
+(SELECT price as midle_price
+FROM PC
+INNER JOIN Product as P 
+ON P.model = PC.model
+WHERE maker = 'A'
+UNION ALL
+SELECT price as midle_price
+FROM Laptop
+INNER JOIN Product as P 
+ON P.model = Laptop.model
+WHERE maker = 'A') as sum
+
+27
+SELECT P.maker, AVG(PC.hd) as middle_hd
+FROM Product as P
+INNER JOIN PC
+ON PC.model = P.model
+WHERE P.maker IN(SELECT DISTINCT maker FROM Product WHERE type = 'Printer')
+GROUP BY P.maker
+
+28
+SELECT CAST (sum(T.F) / count (T.F) as NUMERIC(12,2)) as midle_color
+FROM
+(SELECT DISTINCT Q.Q_NAME, SUM(cast(ISNULL(B_VOL,0) as FLOAT)) as F
+FROM utQ as Q
+LEFT JOIN utB
+ON Q.Q_ID = utB.B_Q_ID
+GROUP BY Q.Q_NAME) T
+
+29
+SELECT I.point, I.date, I.inc, O.out
+FROM income_o as I
+LEFT JOIN outcome_o O
+ON I.point = O.point 
+AND I.date = O.date 
+UNION
+SELECT O.point, O.date, I.inc, O.out
+FROM outcome_o as O
+LEFT JOIN income_o as I
+ON I.point = O.point 
+AND I.date = O.date
+
+30
+SELECT point, date, SUM(all_out), SUM(all_inc)
+FROM
+(SELECT point, date, SUM(inc) as all_inc, null as all_out
+FROM Income
+GROUP BY point, date 
+UNION
+SELECT point, date, null as all_inc, SUM(out) as all_out
+FROM Outcome
+GROUP BY point, date ) as x
+GROUP BY point, date
+ORDER BY point
