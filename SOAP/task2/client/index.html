@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue"></script>
+  </head>
+  <body>
+    <div id="application">
+
+        <!-- HEAD -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <span class="navbar-brand">SOAP II</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- FILTER -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item mr-5">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ year }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button v-for="element in allYear" @click="setYear(element.year)" class="dropdown-item" type="button">
+                                    {{ element.year }}
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="year != 'Year'" class="nav-item mr-5">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ mark }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button v-for="element in allMark" @click="setMark(element.mark)" class="dropdown-item" type="button">
+                                    {{ element.mark }}
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="mark != 'Mark'" class="nav-item mr-5">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ model }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button v-for="element in allModel" @click="setModel(element.model)" class="dropdown-item" type="button">
+                                    {{ element.model }}
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="model != 'Model'" class="nav-item mr-5">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ engine }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button v-for="element in allEngine" @click="setEngine(element.engine)" class="dropdown-item" type="button">
+                                    {{ element.engine }}
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="engine != 'Engine'" class="nav-item mr-5">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ color }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button v-for="element in allColor" @click="setColor(element.color)" class="dropdown-item" type="button">
+                                    {{ element.color }}
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="color != 'Color'" class="nav-item mr-5">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ speed }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button v-for="element in allSpeed" @click="setSpeed(element.speed)" class="dropdown-item" type="button">
+                                    {{ element.speed }}
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-if="year != 'Year'" class="nav-item mr-5">
+                        <button @click="clearBtn()" class="btn btn-dark" type="button" aria-haspopup="true" aria-expanded="false">
+                            X
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- CONTENT -->
+        <!-- Cards -->
+        <div class="row justify-content-center col-md-10">
+            <div v-if="autoArr && selector == 'card'" v-for="auto in autoArr" class="col-md-3">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src="http://coloringkids.org/wp-content/uploads/car-coloring-pages-7.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ auto.mark }}</h4>
+                        <p class="card-text">Model: {{ auto.model }}</p>
+                        <p class="card-text">Year: {{ auto.year }}</p>
+                        <p class="card-text">Engine: {{ auto.engine }}</p>
+                        <p class="card-text">Color: {{ auto.color }}</p>
+                        <p class="card-text">Speed: {{ auto.speed }}</p>
+                        <p class="card-text">Price: {{ auto.price }}</p>
+                        <button @click="showOrderForm(auto.id)" class="btn btn-success">Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Table -->
+        <div v-if="autoArr && selector == 'table'" class="justify-content-md-center">
+            <div class="container col-md-8">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#id</th>
+                        <th>Mark</th>
+                        <th>Model</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="auto in autoArr">
+                        <th scope="row">{{ auto.id }}</th>
+                        <td>{{ auto.mark }}</td>
+                        <td>{{ auto.model }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Form -->
+        <div v-if="autoArr && selector == 'form'" class="row justify-content-center col-md-10">
+            <div v-for="auto in autoArr" class="col-md-3">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src="http://coloringkids.org/wp-content/uploads/car-coloring-pages-7.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ auto.mark }}</h4>
+                        <p class="card-text">Model: {{ auto.model }}</p>
+                        <p class="card-text">Year: {{ auto.year }}</p>
+                        <p class="card-text">Engine: {{ auto.engine }}</p>
+                        <p class="card-text">Color: {{ auto.color }}</p>
+                        <p class="card-text">Speed: {{ auto.speed }}</p>
+                        <p class="card-text">Price: {{ auto.price }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <p>
+                    <input v-model.trim="userFirstname" type="text" class="form-control" aria-describedby="emailHelp" placeholder="First name">
+                    <small class="form-text text-muted">
+                        <span v-if="validFirstname">Сorrectly!</span>
+                        <span v-else>Your Firstname must be at least three characters ...</span>
+                    </small>
+                </p>
+                <p>
+                    <input v-model.trim="userLastname" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Last name">
+                    <small class="form-text text-muted">
+                        <span v-if="validLastname">Сorrectly!</span>
+                        <span v-else>Your Lastname must be at least three characters ...</span>
+                    </small>
+                </p>
+                <div class="custom-controls-stacked">
+                        <label class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" value="card" v-model="userPayment">
+                          <span class="custom-control-indicator"></span>
+                          <span class="custom-control-description font-weight-bold">Credit card</span>
+                        </label>
+                        <label class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" value="cash" v-model="userPayment">
+                          <span class="custom-control-indicator"></span>
+                          <span class="custom-control-description font-weight-bold">Cash</span>
+                        </label>
+                </div>
+                <button v-if="validAccess" @click="sendOrder()" type="submit" class="btn btn-success">Send order</button>
+                <button v-if="!validAccess" type="submit" class="btn btn-success" disabled>Send order</button>
+            </div>
+        </div>
+        <!-- MSG -->
+        <div v-if="selector == 'success'" class="text-center col-md-12">
+            <h2>Your order has been accepted!</h2>
+        </div>
+
+    </div>
+    <!-- Optional JavaScript -->
+    <script src="js/vue.js"></script>    
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+  </body>
+</html>

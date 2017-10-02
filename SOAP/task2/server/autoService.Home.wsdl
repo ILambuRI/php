@@ -1,0 +1,127 @@
+<?xml version ='1.0' encoding ='UTF-8'?>
+<definitions name='AutoService'
+    xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/'
+    xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:soapenc='http://schemas.xmlsoap.org/soap/encoding/'
+    xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'
+    xmlns='http://schemas.xmlsoap.org/wsdl/'>
+
+    <message name='getAllDistinctRequest'>
+    </message>
+    <message name='getAllDistinctResponse'>
+        <part name='Result' type='xsd:string'/>
+    </message>
+
+    <message name='getAutoListRequest'>
+    </message>
+    <message name='getAutoListResponse'>
+        <part name='Result' type='xsd:string'/>
+    </message>
+    
+    <message name='getAutoByIdRequest'>
+        <part name='id' type='xsd:string'/>
+    </message>
+    <message name='getAutoByIdResponse'>
+        <part name='Result' type='xsd:string'/>
+    </message>
+
+    <message name='getAutoByParamsRequest'>
+        <part name='params' type='xsd:string'/>
+    </message>
+    <message name='getAutoByParamsResponse'>
+        <part name='Result' type='xsd:string'/>
+    </message>
+
+    <message name='addOrderRequest'>
+        <part name='params' type='xsd:string'/>
+    </message>
+    <message name='addOrderResponse'>
+        <part name='Result' type='xsd:string'/>
+    </message>
+
+    <portType name='AutoServicePortType'>
+        <operation name='getAllDistinct'>
+            <input message='tns:getAllDistinctRequest'/>
+            <output message='tns:getAllDistinctResponse'/>
+        </operation>
+
+        <operation name='getAutoList'>
+            <input message='tns:getAutoListRequest'/>
+            <output message='tns:getAutoListResponse'/>
+        </operation>
+
+        <operation name='getAutoById'>
+            <input message='tns:getAutoByIdRequest'/>
+            <output message='tns:getAutoByIdResponse'/>
+        </operation>
+
+        <operation name='getAutoByParams'>
+            <input message='tns:getAutoByParamsRequest'/>
+            <output message='tns:getAutoByParamsResponse'/>
+        </operation>
+
+        <operation name='addOrder'>
+            <input message='tns:addOrderRequest'/>
+            <output message='tns:addOrderResponse'/>
+        </operation>
+    </portType>
+
+    <binding name='AutoServiceBinding' type='tns:AutoServicePortType'>
+        <soap:binding style='rpc' transport='http://schemas.xmlsoap.org/soap/http'/>
+        <operation name='getAllDistinct'>
+            <soap:operation />
+            <input>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+            </input>
+            <output>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+            </output>
+        </operation>
+
+        <operation name='getAutoList'>
+            <soap:operation />
+            <input>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+            </input>
+            <output>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+            </output>
+        </operation>
+
+        <operation name='getAutoById'>
+            <soap:operation />
+            <input>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+            </input>
+            <output>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+            </output>
+        </operation>
+
+        <operation name='getAutoByParams'>
+            <soap:operation />
+            <input>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+            </input>
+            <output>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+            </output>
+        </operation>
+
+        <operation name='addOrder'>
+            <soap:operation />
+            <input>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+            </input>
+            <output>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name='AutoServiceService'>
+        <port name='AutoServicePort' binding='AutoServiceBinding'>
+            <soap:address location='http://php/SOAP/task2/server/autoService.php'/>
+        </port>
+    </service>
+</definitions>
